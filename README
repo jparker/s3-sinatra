@@ -1,13 +1,17 @@
 This is a simple Sinatra application which demonstrates how to upload
-a file directly to Amazon S3. Before it can be used a config.yml file
-must be created which defines the following keys:
+files directly to Amazon S3. As S3 does not allow more than one file to
+be uploaded per request, the application uses the jQuery form plugin to
+handle uploading multiple files.
 
-:access_key_id      => AWS access key id
-:secret_access_key  => AWS secret access key
-:bucket             => S3 bucket to upload to
-:redirect_url       => URL to redirect to after successful upload
+To use the application you must create a config.yml file which defines
+the following keys:
+
+  :access_key_id      => AWS access key id
+  :secret_access_key  => AWS secret access key
+  :bucket             => S3 bucket to upload to
+  :redirect_url       => URL to redirect to after successful upload
+  :max_file_size      => Largest file size (in bytes) S3 should accept
 
 The config.yml settings can be defined at the top-level or they can be
 namespaced under the name of the runtime environment much like the
 database.yml file in a Rails project.
-

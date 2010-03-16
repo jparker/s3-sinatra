@@ -16,7 +16,7 @@ ENV['RACK_ENV'] ||= 'development'
 #
 # These values can be defined top-level or scoped to the runtime
 # environment (RACK_ENV) much like a Rails' database.yml file
-$config = YAML.load(File.read('config.yml'))
+$config = YAML.load(ERB.new(File.read('config.yml')).result)
 $config = $config[ENV['RACK_ENV']] if $config.has_key? ENV['RACK_ENV']
 
 get '/' do
@@ -25,7 +25,7 @@ get '/' do
   @bucket = $config[:bucket]
   @redirect_url = $config[:redirect_url]
   @encoded_policy = Base64.encode64(@policy).gsub("\n", '')
-  @encoded_signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), $config[:secret_access_key], @encoded_policy))
+  @encoded_signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), $config[:secret_access_key], @encoded_policy)).chomp
   @aws_access_key_id = $config[:access_key_id]
   erb :index
 end
@@ -44,7 +44,7 @@ def policy
     {"acl": "private"},
     {"success_action_redirect": "#{$config[:redirect_url]}"},
     ["starts-with", "$Content-Type", ""],
-    ["content-length-range", 0, #{1.megabyte}]
+    ["content-length-range", 0, #{$config[:max_file_size]}]
   ]
 }
   }
