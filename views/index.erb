@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>S3 Sinatra Demo Application</title>
+  </head>
+  <body>
+    <pre><%= h @policy %></pre>
+    <pre><%= h params.inspect %></pre>
+    <form action="https://<%= @bucket %>.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="key" value="${filename}" />
+      <input type="hidden" name="AWSAccessKeyId" value="<%= @aws_access_key_id %>" />
+      <input type="hidden" name="acl" value="private" />
+      <input type="hidden" name="success_action_redirect" value="<%= @redirect_url %>" />
+      <input type="hidden" name="policy" value="<%= @encoded_policy %>" />
+      <input type="hidden" name="signature" value="<%= @encoded_signature %>" />
+      <input type="hidden" name="Content-Type" value="" />
+
+      File:
+      <input name="file" type="file" />
+      <button type="submit">Upload</button>
+    </form>
+  </body>
+</html>
