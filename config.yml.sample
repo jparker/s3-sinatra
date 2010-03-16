@@ -1,0 +1,11 @@
+development: &defaults
+  :access_key_id: 123ABC...
+  :secret_access_key: 123ABCabc...
+  :bucket: s3-sinatra
+  :redirect_url: http://localhost:9393/
+  :max_file_size: <%= 10.kilobytes %>
+
+production:
+  <<: *defaults
+  :redirect_url: http://s3-sinatra.heroku.com/
+
