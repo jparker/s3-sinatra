@@ -8,14 +8,6 @@ require 'digest/sha1'
 
 ENV['RACK_ENV'] ||= 'development'
 
-# config.yml must define the following keys:
-#   :access_key_id     => AWS access key
-#   :secret_access_key => AWS secret access key
-#   :bucket            => S3 bucket for upload
-#   :redirect_url      => Base URL to redirect to after successful upload
-#
-# These values can be defined top-level or scoped to the runtime
-# environment (RACK_ENV) much like a Rails' database.yml file
 $config = YAML.load(ERB.new(File.read('config.yml')).result)
 $config = $config[ENV['RACK_ENV']] if $config.has_key? ENV['RACK_ENV']
 

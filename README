@@ -15,3 +15,8 @@ the following keys:
 The config.yml settings can be defined at the top-level or they can be
 namespaced under the name of the runtime environment much like the
 database.yml file in a Rails project.
+
+TODO
+
+* Gracefully handle upload failures (parse S3's XML response)
+* Minimal progress indicator, e.g., say "Uploading..."
