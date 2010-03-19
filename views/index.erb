@@ -6,22 +6,11 @@
     <title>S3 Sinatra Demo Application</title>
   </head>
   <body>
-    <pre><%= h @policy %></pre>
-    <pre><%= h @params.inspect %></pre>
-    <% 3.times do %>
-      <form action="https://<%= @bucket %>.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="key" value="${filename}" />
-        <input type="hidden" name="AWSAccessKeyId" value="<%= @aws_access_key_id %>" />
-        <input type="hidden" name="acl" value="private" />
-        <input type="hidden" name="success_action_redirect" value="<%= @redirect_url %>" />
-        <input type="hidden" name="policy" value="<%= @encoded_policy %>" />
-        <input type="hidden" name="signature" value="<%= @encoded_signature %>" />
-        <input type="hidden" name="Content-Type" value="" />
-        File:
-        <input name="file" type="file" />
-        <button type="submit">Upload only this</button>
-      </form>
-    <% end %>
+    <h1>Upload Files Directly to S3</h1>
+    <div class="upload"></div>
+    
+    <div><a id="add" href="#">Add another</a></div>
+    
     <button id="upload_all">Upload everything</button>
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
